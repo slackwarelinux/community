@@ -9,16 +9,15 @@ import (
 const (
 	Male   = 1
 	Female = 0
-	Unknow = 99
 )
 
 type Person struct {
-	Id          string
-	DisplayName string
-	FirstName   string
-	LastName    string
-	Sex         int
-	Birthday    string
+	Id        string
+	Name      string
+	FirstName string
+	LastName  string
+	Sex       int
+	Birthday  string
 }
 
 func genSex() int {
@@ -27,8 +26,11 @@ func genSex() int {
 }
 
 func (*Person) Bear() *Person {
-	baby := new(Person)
-	baby.Id = uuid.NewV4().String()
-	baby.Sex = genSex()
+	uid, _ := uuid.NewV4()
+	baby := &Person{
+		Id:   uid.String(),
+		Sex:  genSex(),
+		Name: "未定义",
+	}
 	return baby
 }
