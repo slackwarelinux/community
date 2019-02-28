@@ -17,7 +17,7 @@ type Person struct {
 	FirstName string
 	LastName  string
 	Sex       int
-	Birthday  string
+	Birthday  time.Time
 }
 
 func genSex() int {
@@ -28,9 +28,10 @@ func genSex() int {
 func (*Person) Bear() *Person {
 	uid, _ := uuid.NewV4()
 	baby := &Person{
-		Id:   uid.String(),
-		Sex:  genSex(),
-		Name: "未定义",
+		Id:       uid.String(),
+		Sex:      genSex(),
+		Name:     "未定义",
+		Birthday: time.Now(),
 	}
 	return baby
 }
