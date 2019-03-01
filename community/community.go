@@ -14,6 +14,8 @@ func main() {
 	switch cmd {
 	case "server":
 		runServer()
+	case "test":
+		runTest()
 	default:
 		help()
 	}

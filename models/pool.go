@@ -18,13 +18,14 @@ func (pool *Pool) Init(min_ int) {
 	pool.free = len(persons)
 }
 
-func (pool *Pool) Request() *Person {
-	if pool.free < pool.min {
+func (pool *Pool) Apply() (*Person, error) {
+	if pool.free <= pool.min {
 		childbirth(pool)
 	}
 	person := pool.persons[0]
+	person.Status = StatusWaiting
 	pool.free--
-	return person
+	return person, nil
 }
 
 func (pool *Pool) GetStatus() (total int, free int) {
@@ -33,6 +34,20 @@ func (pool *Pool) GetStatus() (total int, free int) {
 	return
 }
 
+// 获取状态
+func getStatus(pool *Pool, status int) (int, []*Person) {
+	var count int = 0
+	var persons []*Person
+	for i := 0; i < len(pool.persons); i++ {
+		if pool.persons[i].Status == status {
+			count++
+			persons = append(persons, pool.persons[i])
+		}
+	}
+	return count, persons
+}
+
+// 生产
 func childbirth(pool *Pool) {
 	parent := Person{}
 	for i := 0; i < pool.min; i++ {

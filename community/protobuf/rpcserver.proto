@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "org.building.community";
+option java_outer_classname = "Server";
+
+package protobuf;
+
+service RPC {
+    rpc Apply (ApplyRequest) returns (NormalReply) {}
+}
+
+message ApplyRequest {
+    string applicant = 1;
+    string usercode = 2;
+}
+
+message NormalReply {
+    int32 error = 1;
+    string msg = 2;
+    string key = 100;
+}
+

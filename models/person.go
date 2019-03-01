@@ -7,17 +7,26 @@ import (
 )
 
 const (
-	Male   = 1
-	Female = 0
+	SexMale   = 1
+	SexFemale = 0
+)
+
+const (
+	StatusFree = iota
+	StatusWaiting
+	StatusRunning
+	StatusDeath
 )
 
 type Person struct {
-	Id        string
-	Name      string
-	FirstName string
-	LastName  string
-	Sex       int
-	Birthday  time.Time
+	Id          string
+	Code        string
+	Name        string
+	Sex         int
+	Birthday    time.Time
+	DateOfDeath time.Time
+	Status      int
+	Applicant   string
 }
 
 func genSex() int {
@@ -32,6 +41,12 @@ func (*Person) Bear() *Person {
 		Sex:      genSex(),
 		Name:     "未定义",
 		Birthday: time.Now(),
+		Status:   StatusFree,
 	}
 	return baby
+}
+
+func (person *Person) Death() {
+	person.DateOfDeath = time.Now()
+	person.Status = StatusDeath
 }
