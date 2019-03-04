@@ -34,18 +34,18 @@ func (s *server) Apply(ctx context.Context, in *protobuf.ApplyRequest) (*protobu
 
 func runServer() {
 	min := flag.Int("min", 5, "min person number")
-	port := flag.String("port", ":5000", "listen port. default :5000")
+	address := flag.String("address", ":5000", "listen address. default :5000")
 	flag.Parse()
 
 	pool.Init(*min)
 
-	lis, err := net.Listen("tcp", *port)
+	lis, err := net.Listen("tcp", *address)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	} else {
 		s := grpc.NewServer()
 		protobuf.RegisterRPCServer(s, &server{})
-		log.Printf("server listen on %v\n", *port)
+		log.Printf("server listen on %v\n", *address)
 		_ = s.Serve(lis)
 	}
 

@@ -24,5 +24,5 @@ func main() {
 func help() {
 	fmt.Println("Usage:community <command> [options]")
 	fmt.Println("commands:")
-	fmt.Println("  server [-min]")
+	fmt.Println("  server [-min <min> -address <address:port>]")
 }
